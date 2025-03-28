@@ -1,0 +1,105 @@
+-----------------------------------------------------------------------------
+STEP 1
+-----------------------------------------------------------------------------
+// robot_info_class.cpp
+Class RobotInfo
+    string robot_description
+    string serial_number
+    string ip_address
+    string firmware_version
+
+    ROS_publisher custom_message '/robot_info'
+        // custom_message has all the strings above
+        // robotinfo_msgs pkg has a usable message type
+    
+    virtual publish_data() 
+        // publishes strings above
+
+object = RobotInfo()
+
+// ./robot_info_node executable from robot_info_main.cpp
+
+--------------------------------------------------------------------------
+
+// agv_robot_info_class.cpp <- robot_info_class
+Class ARGRobotInfo : inherit from RobotInfo
+    float maximum_payload
+
+    publish_data(){
+        // ROS_publisher sends data:
+            - (custom_message) robot_description
+            - (custom_message) serial_number
+            - (custom_message) ip_address
+            - (custom_message) firmware_version 
+            - maximum_payload
+    }
+
+// ./agv_robot_info_node executable from agv_robot_info_class.cpp
+
+    // roscore in terminal #1
+    // ./agv_robot_info_node in terminal #2
+    // rostopic echo /robot_info in terminal #3 should return
+            data_field_01: "robot_description: Mir100"
+            data_field_02: "serial_number: 567A359"
+            data_field_03: "ip_address: 169.254.5.180"
+            data_field_04: "firmware_version: 3.5.8"
+            data_field_05: "maximum_payload: 100 Kg"
+            data_field_06: 
+            data_field_07:
+            data_field_08:
+            data_field_09:
+            data_field_10:
+
+// create a git tag part1-step1
+
+--------------------------------------------------------------------------
+GRADING STEP 1
+--------------------------------------------------------------------------
+1pt: Class RobotInfo w member variables robot_description serial_number ip_address and firmware_version
+1pt: RobotInfo implements a ROS publisher and publish_data() method
+1pt: running ./robot_info_node and rostopic echo returns 4 data fields
+--------------------------------------------------------------------------
+1pt: Class AGVRobotInfo derived from RobotInfo w member variable maximum_payload
+1pt: AGVRobotInfo properly overrides publish_data()
+1pt: running ./agv_robot_info_node and rostopic echo returns 5 data fields
+
+
+--------------------------------------------------------------------------
+STEP 2
+--------------------------------------------------------------------------
+Class AGVRobotInfo
+    HydraulicSystemMonitor name
+
+    // create hydraulic_system_monitor.cpp in robot_info/src
+
+Class HydraulicSystemMonitor
+    string hydraulic_oil_temperature
+    string hydraulic_oil_tank_fill_level
+    string hydraulic_oil_pressure
+
+
+
+    // rostopic echo /robot_info in terminal #3 should return
+            data_field_01: "robot_description: Mir100"
+            data_field_02: "serial_number: 567A359"
+            data_field_03: "ip_address: 169.254.5.180"
+            data_field_04: "firmware_version: 3.5.8"
+            data_field_05: "maximum_payload: 100 Kg"
+            data_field_06: "hydraulic_oil_temperature: 45C"
+            data_field_07: "hydraulic_oil_tank_fill_level: 100%"
+            data_field_08: "hydraulic_oil_pressure: 250 bar"
+            data_field_09:
+            data_field_10:
+
+// create a git tag part1-step2
+
+--------------------------------------------------------------------------
+GRADING STEP 2
+--------------------------------------------------------------------------
+1pt: Class HydraulicSystemMonitor has member variables hydraulic_oil_temperature
+        hydraulic_oil_tank_fill_level, and hydraulic_oil_pressure
+1pt: one or more methods to retrieve data from member variables ^
+1pt: AGVRobotInfo has one member variable of type HydraulicSystemMonitor
+        + methods to call HydraulicSystemMonitor methods to assign the
+        member variables to the ROS message to be published
+1pt: running agv_robot_info_node using rostopic echo produces 8 data fields
