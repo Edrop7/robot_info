@@ -1,5 +1,6 @@
 #include "robot_info/robot_info_class.h"
 
+
 // Constructor: Assigns NodeHandle (shared with smart pointer)
 RobotInfo::RobotInfo(std::shared_ptr<ros::NodeHandle> node_handle,
                      const std::string &description, 
@@ -14,6 +15,7 @@ RobotInfo::RobotInfo(std::shared_ptr<ros::NodeHandle> node_handle,
 {
     pub = std::make_shared<ros::Publisher>(nh->advertise<robotinfo_msgs::RobotInfo10Fields>("robot_info", 10));
 }
+
 
 // used in inheriting classes to not repeat code
 void RobotInfo::set_base_fields(robotinfo_msgs::RobotInfo10Fields &msg) {
@@ -35,3 +37,16 @@ void RobotInfo::publish_data()
 
   ROS_INFO("Published robot info");
 }
+
+
+// used to replace ros::spin as it did not loop my code
+void RobotInfo::repeat_publishing_loop()
+{
+    ros::Rate rate(1);
+    while (ros::ok()) {
+        this->publish_data();
+        ros::spinOnce();
+        rate.sleep();
+    }
+}
+

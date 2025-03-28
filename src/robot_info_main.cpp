@@ -12,13 +12,7 @@ int main(int argc, char **argv) {
                     "169.254.5.180", 
                     "3.5.8");
 
-  // replaced ros::spin() as it wouldnt cycle the publish_data() method
-  ros::Rate rate(1);
-  while (ros::ok()) {
-    robotInfo.publish_data();
-    ros::spinOnce();
-    rate.sleep();
-  }
+  robotInfo.repeat_publishing_loop();
 
   return 0;
 }

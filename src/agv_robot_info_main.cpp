@@ -14,13 +14,7 @@ int main(int argc, char **argv) {
                     "3.5.8",
                     "100 Kg");
 
-  // replaced ros::spin() as it wouldnt cycle the publish_data() method
-  ros::Rate rate(1);
-  while (ros::ok()) {
-    agvRobotInfo.publish_data();
-    ros::spinOnce();
-    rate.sleep();
-  }
+  agvRobotInfo.repeat_publishing_loop();
 
   return 0;
 }
