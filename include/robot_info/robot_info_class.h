@@ -13,6 +13,7 @@ public:
             const std::string &version = "1.0.0");
 
   virtual void publish_data(); // will need to be modified when inherited
+  void repeat_publishing_loop(); // used to replace ros::spin as it did not loop my code
   virtual void set_base_fields(robotinfo_msgs::RobotInfo10Fields &msg); // used in inherited classes
 
 protected:

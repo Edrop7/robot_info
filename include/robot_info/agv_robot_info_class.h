@@ -10,6 +10,7 @@ public:
             const std::string &ip = "192.168.0.1", 
             const std::string &version = "1.0.0",
             const std::string &payload = "1 kg");
+            
     virtual void publish_data() override;
     virtual void set_agv_fields(robotinfo_msgs::RobotInfo10Fields &msg); // used in inherited classes
 
