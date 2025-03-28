@@ -13,6 +13,7 @@ public:
             const std::string &version = "1.0.0");
 
   virtual void publish_data(); // will need to be modified when inherited
+  virtual void set_base_fields(robotinfo_msgs::RobotInfo10Fields &msg); // used in inherited classes
 
 protected:
   std::string robot_description;
