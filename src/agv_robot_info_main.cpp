@@ -1,5 +1,6 @@
 #include "robot_info/robot_info_class.h"
 #include "robot_info/agv_robot_info_class.h"
+#include "robot_info/hydraulic_system_monitor.h"
 #include <ros/ros.h>
 
 int main(int argc, char **argv) {
